@@ -20,11 +20,6 @@ LDD_MODULE_SUBDIRS += $(SCULL_MODULE)
 #path variables 
 AESD_MODULES_DIR = /lib/modules/aesd-modules
 
-#define LDD_BUILD_CMDS
-#        $(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/misc-modules 
-#        $(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/scull 
-#endef
-
 define LDD_INSTALL_TARGET_CMDS
         #install .ko, load and unload scripts to AESD_MODULES_DIR
         $(INSTALL) -d 0755 $(TARGET_DIR)$(AESD_MODULES_DIR)
@@ -42,8 +37,6 @@ define LDD_INSTALL_TARGET_CMDS
         $(INSTALL) -m 0755 $(@D)/$(SCULL_MODULE)/scull_load $(TARGET_DIR)$(AESD_MODULES_DIR)/$(SCULL_MODULE)
         $(INSTALL) -m 0755 $(@D)/$(SCULL_MODULE)/scull_unload $(TARGET_DIR)$(AESD_MODULES_DIR)/$(SCULL_MODULE)
 	
-	#install rootfs_overlay
-	#$(INSTALL) -m 0755 $(@D)/../../rootfs_overlay/* $(TARGET_DIR)/etc/init.d	
 endef
 $(eval $(kernel-module))
 $(eval $(generic-package))
