@@ -1,0 +1,4 @@
+config BR2_PACKAGE_LDD
+	bool "ldd"
+	help
+	 Package to install scull, faulty and hello module to buildroot  

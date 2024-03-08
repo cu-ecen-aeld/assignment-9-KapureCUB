@@ -1,0 +1,25 @@
+i#!/bin/sh
+
+AESD_MODULES_DIR = /lib/modules/aesd-modules
+
+case "$1" in
+    # Start case -- LOAD MODULES
+    start)
+        echo "Loading faulty driver, scull driver and hello module"
+        #call module_load and scull_load and modprobe hello module
+	.$(AESD_MODULES_DIR)/scull_module/scull_load
+	.$(AESD_MODULES_DIR)/misc-modules/modules_load faulty
+	modprobe $(AESD_MODULES_DIR)/misc-modules/hello.ko 
+        ;;
+    # Stop case -- UNLOAD MODULES
+    stop)
+        echo "Unloading faulty driver, scull driver and hello module"
+        #call module_unload and scull_unload and rmmod hello module
+	.$(AESD_MODULES_DIR)/scull_module/scull_unload
+        .$(AESD_MODULES_DIR)/misc-modules/modules_unload faulty 
+        rmmod $(AESD_MODULES_DIR)/misc-modules/hello.ko
+	;;
+    *)
+        echo "Usage: $0 {start|stop}"
+    exit 1
+esac
